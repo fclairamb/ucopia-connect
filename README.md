@@ -19,5 +19,5 @@ The following config is optional with these default value:
 
 The best option is probably to run it with docker:
 ```bash
-docker run -ti -e PORTAL_LOGIN=$YOUR_LOGIN -e PORTAL_PASSWORD=$YOUR_PASSWORD --restart=always fclairamb/utopia-connect
+docker run --name=wifi-autoconnect -ti -e PORTAL_LOGIN=$MCSF_LOGIN -e PORTAL_PASSWORD=$MCSF_PASSWORD --restart=always fclairamb/ucopia-connect
 ```
