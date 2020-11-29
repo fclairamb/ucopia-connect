@@ -13,7 +13,7 @@ jobs:
         python-version: 3.9
     - name: Install requirements
       run: |
-        pip3 install --upgrade pip
+        python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
         if [ -f requirements-dev.txt ]; then pip3 install -r requirements-dev.txt; fi
     - name: Linting
