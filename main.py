@@ -7,6 +7,8 @@ import time
 import logging
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3 import Retry
 
 
 class AuthError(RuntimeError):
@@ -45,6 +47,14 @@ class PortalAuth:
                                              'AppleWebKit/537.36 (KHTML, like Gecko) ' \
                                              'Chrome/86.0.4240.198 Safari/537.36'
 
+        retry_strategy = Retry(
+            total=10,
+            backoff_factor=0.05
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        self.session.mount("https://", adapter)
+        self.session.mount("http://", adapter)
+
     @property
     def _api_url(self) -> str:
         """API URL"""
@@ -52,7 +62,7 @@ class PortalAuth:
 
     def get_status(self) -> ApiResponse:
         """Get the current status"""
-        resp = self.session.post(self._api_url, data={'action': PortalAuth.ACTION_INIT})
+        resp = self.session.post(self._api_url, data={'action': PortalAuth.ACTION_INIT}, timeout=2)
         return ApiResponse(resp.json())
 
     def perform_logon(self) -> ApiResponse:
