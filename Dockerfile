@@ -1,4 +1,4 @@
-FROM python:3.14.8-alpine
+FROM python:3.15.0-alpine
 WORKDIR /app
 COPY main.py requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
